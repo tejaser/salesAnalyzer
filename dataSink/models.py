@@ -88,8 +88,13 @@ class customerRegistration(models.Model):
 
 class productForm(models.Model):
     prodcut_id = models.BigAutoField(primary_key=True)
-    prodcut_series = models.CharField(choices=product_series, default='Rustic', max_length=10)
+    product_series = models.CharField(choices=product_series, default='Rustic', max_length=10)
     product_code = models.CharField(max_length=70, default='')
     product_class = models.CharField(choices=product_grade, default='Standard', max_length=10)
     product_category = models.CharField(choices=product_category, default='CAT1',max_length=10)
+    created_by = models.ForeignKey('auth.User', on_delete=models.CASCADE, default=0)
+    created_date = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return self.product_series + ' ' + str(self.prodcut_id)
 
